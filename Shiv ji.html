@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maha Shivratri Special</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background: linear-gradient(to bottom, #000428, #004e92);
+    overflow:hidden;
+    font-family: Arial, sans-serif;
+    text-align:center;
+    color:white;
+}
+
+/* Animated Title */
+h1{
+    margin-top:40px;
+    font-size:50px;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow{
+    from{ text-shadow: 0 0 10px #00f, 0 0 20px #00f; }
+    to{ text-shadow: 0 0 20px #0ff, 0 0 40px #0ff; }
+}
+
+/* Countdown */
+#countdown{
+    font-size:30px;
+    margin-top:20px;
+}
+
+/* Falling Belpatra */
+.leaf{
+    position:absolute;
+    top:-50px;
+    font-size:25px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall{
+    to{
+        transform: translateY(100vh);
+    }
+}
+
+/* Button */
+button{
+    padding:10px 20px;
+    font-size:18px;
+    margin-top:30px;
+    background:#00c3ff;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+button:hover{
+    background:#0072ff;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🔱 Har Har Mahadev 🔱</h1>
+
+<div id="countdown"></div>
+
+<button onclick="playMusic()">🕉️ Play Mantra</button>
+
+<audio id="shivMusic" loop>
+  <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Ketsa/Ascendance/Ketsa_-_02_-_Ascendance.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* Countdown to 2026 Maha Shivratri (15 Feb 2026 approx) */
+var shivDate = new Date("Feb 15, 2026 00:00:00").getTime();
+
+var x = setInterval(function() {
+
+  var now = new Date().getTime();
+  var distance = shivDate - now;
+
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML =
+  "Maha Shivratri in: " + days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countdown").innerHTML = "🔱 Happy Maha Shivratri 🔱";
+  }
+}, 1000);
+
+
+/* Falling Leaves */
+function createLeaf(){
+    var leaf = document.createElement("div");
+    leaf.classList.add("leaf");
+    leaf.innerHTML = "🍃";
+    leaf.style.left = Math.random() * window.innerWidth + "px";
+    leaf.style.animationDuration = (3 + Math.random()*5) + "s";
+    document.body.appendChild(leaf);
+
+    setTimeout(()=>{
+        leaf.remove();
+    },8000);
+}
+
+setInterval(createLeaf, 300);
+
+
+/* Music */
+function playMusic(){
+    document.getElementById("shivMusic").play();
+}
+
+</script>
+
+</body>
+</html>
